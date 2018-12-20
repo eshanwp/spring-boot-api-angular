@@ -30,24 +30,6 @@ public class UserController {
     @Autowired
     private UserConverter userConverter;
 
-//    @PostMapping(value = "/users")
-//    public DataTablesOutput<User> findAllUsers( @RequestBody DataTablesInput input){
-////        HashMap map = new HashMap();
-//////        map.put("draw",0);
-//////        map.put("recordsTotal",258);
-//////        map.put("recordsFiltered",258);
-////        map.put("data",userService.findAllUsers());
-//////        return userService.findAllUsers();
-////        return map;
-//        return userRepositoryCustom.findAll(input);
-//
-//    }
-
-//    @GetMapping(value = "/users")
-//    public DataTablesOutput<User> list(@RequestBody DataTablesInput input) {
-//        return userRepositoryCustom.findAll(input);
-//    }
-
     @PostMapping(value = "/users")
     public DataTablesOutput<User> list(@RequestBody DataTablesInput input) {
         return userRepositoryCustom.findAll(input);
@@ -74,6 +56,13 @@ public class UserController {
 
         System.out.println(">>>"+userDto.toString());
         String status = userService.userSaveOrUpdate(userDto);
+        return status;
+    }
+
+    //Delete User
+    @DeleteMapping(value = "/users/{id}")
+    public String deleteUser(@PathVariable Long id){
+        String status = userService.deleteUser(id);
         return status;
     }
 }

@@ -69,4 +69,21 @@ public class UserService {
         return "User has been successfully inserted";
     }
 
+    @Transactional
+    public String deleteUser(Long id) {
+
+        //Check the user exist or not
+        UserDto userResult =  getUser(id);
+
+        if (userResult.getId()!=0){
+            userRepository.deleteById(id);
+            log.info("User has been successfully deleted");
+            return "User has been successfully deleted";
+        }else{
+            log.info("User not found");
+            return "User not found";
+        }
+
+    }
+
 }
